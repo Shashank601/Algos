@@ -1,0 +1,44 @@
+#include <iostream>
+using namespace std;
+
+class PaymentMethod {
+public:
+    virtual void pay() = 0; // pure virtual
+    virtual ~PaymentMethod() {} // always provide a virtual destructor for polymorphic base
+};
+
+class CreditCard : public PaymentMethod {
+public:
+    void pay() override {
+        cout << "Paying with Credit Card\n";
+    }
+};
+
+class PayPal : public PaymentMethod {
+public:
+    void pay() override {
+        cout << "Paying with PayPal\n";
+    }
+};
+
+int main() {
+    PaymentMethod* payment = nullptr; // pointer to base class
+
+    int choice;
+    cout << "Choose payment method:\n1. Credit Card\n2. PayPal\n";
+    cin >> choice;
+
+    if (choice == 1) {
+        payment = new CreditCard();
+    } else if (choice == 2) {
+        payment = new PayPal();
+    } else {
+        cout << "Invalid choice\n";
+        return 1;
+    }
+
+    payment->pay(); // polymorphic call
+
+    delete payment; // clean up
+    return 0;
+}
