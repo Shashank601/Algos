@@ -1,0 +1,51 @@
+vec g(str) {
+    vec res;
+    for (len(str)) {
+        if (encountered op) {
+            L = g(before op str);   //have faith
+            R = g(after op str);
+
+            //now got all possibilites of left and right expression now combine based on op
+            for each form L
+                for each from R
+                    res.append(l op r)
+
+
+            //base case
+            if res is empty -> as exp doesnt had any op
+                res.append(stoi(str)) //always hit when resolution implies one call come when L and R size is just 1 and only one combn possible
+
+            return res // bubble up the compute
+
+            
+        }
+    }
+}
+
+DETAILS:
+#define pb push_back
+
+vector<int> diffWaysToCompute(string expression) {
+    vector<int> res;
+    //key: dynamic  .len ---> i is for each string upto its len 
+    for (i < expression.length()) {
+
+        if (ch == '-' || ch == '+' || ch == '*') {
+             L_arr = diffWaysToCompute(substr(0, i));
+             R_arr = diffWaysToCompute(substr(i + 1));
+            
+            //all combinations 
+            for (auto lval : L) {
+                for (auto rval : R) { 
+                        //combine based on curr op use (if logic)
+                        res.pb(lval op rval);          
+                }
+            }
+        }
+    }
+    if (res.empty()) { // base case vimp .. dont return empty...hai when expression contains only a number
+        res.pb(stoi(expression));
+    }
+
+    return res;
+}
