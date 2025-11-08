@@ -1,0 +1,47 @@
+#three possibilities when processinsisng using getline
+
+1. "" OR '.' --> DO NOTHING.  why? bcz empty string is due to multiple slashes(delimiter is '/') and '.' stands for cwd so we remove it.
+2. "word" --> process it (push to stack)
+3. '..' implies parent dir means climb/pop cwd. Q. what if stack empty A. do nothing(ignore)
+
+/abc///../././ab/def/   --> ["abc", "", "", "..", ".", ".", "ab", "def"]  using getline and stringstream
+
+now we loop on this while forming it  (one pass)
+NOTE:- we dont push slashes. we dont have slashes. stack only contain strings(non empty)
+
+once proccesed completely
+if stack is empty return root dir ('/')
+
+
+stack  reversed the path 
+so use prepend logic; (new!)
+
+res = (/ + top) + res;                 // not res += ()
+
+two pass algo
+
+
+DETAIL:
+string simplifyPath(string path) {
+    stringstream ss(path);
+    string token = "";
+    stack<string> st;
+
+    while (getline(ss, token, '/')) {
+        if (token == "" || token == ".") {
+            continue;
+        } else if (token != "..") {
+            st.push(token);
+        } else if (!st.empty()) {
+            st.pop();
+        }
+    }
+    if (st.empty()) return "/";
+
+    string res = "";
+    while (!st.empty()) {
+        res = '/' + st.top() + res; //prepend way
+        st.pop();
+    }
+    return res;
+}
