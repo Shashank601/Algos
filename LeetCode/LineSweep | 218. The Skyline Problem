@@ -1,0 +1,62 @@
+-> we take input  and convert it into evennts 
+-> [lx, rx, ht] => [lx, ht, start], [rx, ht, end] TIP: use -ive trick to remove string manipulation
+-> in some problem like 1851, 2251  we DONT do that transformation
+-> at the end everything comes to the active structure : tracks all active events
+-> sort events, now here "start/ -ive" always comes before "end". 
+-> main logic
+  -> start sweeping over events
+  -> when "start" : add it to active structure (only relevant info)
+  -> when "end" : remove it from active structure (in multiset use iterator/.find()  as using vaue directly will remove all occurence/not good)
+  -> at every event check does max ht is != from res.back() => if true then add it res
+  -> in multiset use rbegin() to get end element / multiset is sorted.
+
+-> very critical part: init multiset with 0. (int mx = *active.rbegin() to avoid deref nullptr when empty we will have atleast 1 element)
+
+//crux of line sweep
+for each event
+  add if start
+  remove if end
+  process active structure
+
+Q. def "start" and "end" clearly. what do you mean by something being active??
+
+
+#DETAILS:
+ 
+#define pb push_back
+
+vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+    int n = buildings.size();
+    vector<vector<int>> res;
+    vector<pair<int, int>> events(2 * n);
+
+    int i = 0;
+    for (auto building : buildings) {
+        int lx = building[0];
+        int rx = building[1];
+        int ht = building[2];
+
+        events[i++] = {lx, -ht}; //needed it marks start which later used in deciding whether to insert or erase
+        events[i++] = {rx, ht};
+    }
+
+    sort(events.begin(), events.end());
+
+    multiset<int> active = {0};
+
+    for (int i = 0; i < 2 * n; i++) {
+        int ht = events[i].second;
+        if (ht < 0) { //implies start
+            active.insert(-ht);
+        } else {
+            active.erase(active.find(ht));
+        }
+
+        int mx = *active.rbegin();
+
+        if (res.empty() || mx != res.back()[1]) {
+            res.pb({events[i].first,mx});
+        }
+    }
+    return res;
+}
