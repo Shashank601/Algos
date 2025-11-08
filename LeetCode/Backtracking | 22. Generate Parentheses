@@ -1,0 +1,40 @@
+not std approach (try std too)
+issues: you overcomplicated it. it works. but not optimized
+
+approach:-
+
+string size is 2 * n --> as open parenthesis == closed parensthesis
+
+-> so i tried using stack to check the final result is valid or not if stack empty its valid 
+-> we use string s to keep what had been pushed and popped
+-> no backtracking in string on popping from stack.  s is like history tracker
+-> we only push ' ( ' when open count is less than  n/2;
+-> so same could be done for ')' ?? maybe. we aint doing it here 
+-> close bracket only added to string if top is open. close also mean pop. dont forget to backtarck
+
+void g(int n, int openCnt, string s, stack<char>& st, vector<string>& res) { //openCnt in s not st
+    if (s.size() == n) {
+        if (st.empty()) res.push_back(s);
+        return;
+    }
+    if (openCnt <  n/2) {
+     
+        st.push('(');
+        g(n, openCnt + 1, s + '(', st, res);
+        st.pop();
+        
+    }  
+    if (!st.empty() && st.top() == '(') {
+        st.pop();
+        g(n, openCnt, s + ')', st, res);
+        st.push('(');
+    }
+}
+vector<string> generateParenthesis(int n) {
+    vector<string> res;
+    stack<char> st; //this prevents unncessary calls 
+    g(2 * n, 0, "", st, res);
+    return res;
+
+
+}
