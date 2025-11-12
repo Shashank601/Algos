@@ -88,6 +88,9 @@ Node -> isWord,
 
 @startsWith is similar just less conditions
 
+A Node is a state representing a prefix its children are all possible next prefixes.
+curr->arr[c - 'a'] = new Node(); // just put a empty node at that idx  to mark char presence
+
 DETAILS:
 
 class Node {
