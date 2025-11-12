@@ -98,7 +98,7 @@ implies '45' :  1 for put,  get/putNewValue(modify) 4 times------> implies it ex
 freq: number of time we hve accesed key (get/put)
 
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------
-3.freqList -> freq (1 to N), linkedList conatining all "keys" having tht freq  
+3.freqList -> freq , linkedList conatining all "keys" having tht freq  //a key freq can 2 * 10^5 (max get/put calls), 45, 1 etc.
 group keys by freq (worst case: all elements have frequency 1. so list size hits capacity but its manageable)
 worst case size: N
 
