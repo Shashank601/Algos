@@ -1,0 +1,151 @@
+Node defn:
+->list of Node pointers (26) :-  every char presence(prefix to be more accurate)
+->bool isEnd
+
+one root node always exist (which repr "" prefix)
+we check in its array for first character/ one word prefixes 
+
+the notNull in arr repr a prefix. 
+and we check presence first then jump to node.
+jump only when word ch are left/i < n okk //unprocessed word exists
+
+
+(ch presence : no null ptr at arr c - 'a' idx of curr node) 
+(jmp to node :  to check next char exist by checking all prefixes ending at next node. //if exist then no null ptr should exist at that idx) 
+
+On entering in a node we  get a arr[26] repr all abssence/presence of prefixes at that level
+and we have one unprocessed char thats why we entered in this node and also prev prfixes does existed
+
+
+a node here mainly repr a list of all prefixes that exist and does not exist 
+and its lvl repr how deep we in a word
+
+in any iter in loop
+c repr a char whose absence and presece matters ook
+now temp ptr points to the node which can tell curr char presece/absence 
+
+eg jmpt to a node via idx 2 now
+node = all kind of prefixes till here ..ca, ..cb, ..cd, ..ce .... ,..cz   if a ptr at  idx i it means that prfix valid
+                                        0      1     2    3          25
+
+
+A Node doesNOT represent a character.
+node = all words that share the prefix up to this point.
+
+root: represents the empty prefix “”
+its child at index 'c' - 'a' -> represents prefix "c"
+that child’s child at 'a' - 'a' -> represents "ca"
+and so on.
+
+So each node corresponds to a prefix, not a single character.
+
+jump to node -> to check all prefixes after curr node that exist okk
+
+When i “jump” (move) to a node, it implies:
+“Now im at the prefix represented by this node. show me what words can exist after this prefix.
+
+
+okk.
+
+
+now this trie have three main operations
+1.insert
+2.startsWith
+3.search
+
+basic loop traversal on tree + checking existence
+
+Node -> isWord, 
+        list of ptr(26)
+
+@insert(word) {
+  loop len(word):
+    fetch first ch
+  
+    if not exist
+      make a new node and change nullptr to new returned ptr //heap alloc
+  
+    always move to next unprocessed char
+
+  loop end:
+
+  mark last Word true; //after loop when we done inserting all
+}
+
+@serach() {
+  //very similar
+  loop:
+    if char dont exist return false
+    if exist keep going 
+
+  loop end:
+
+  //after loop if not returned false
+
+  two possibilietes either we at a node which have isEnd true implies a word : return true.
+  else return false. also mean the chain is not ended yet but our word length exhausted
+}
+
+@startsWith is similar just less conditions
+
+DETAILS:
+
+class Node {
+public:
+    Node* arr[26] = {nullptr};
+    bool isWord = false;
+};
+
+class Trie {
+public:
+    Node* root;
+    Trie() {
+        root = new Node();
+    }
+    
+    void insert(string word) {
+        
+        int n = word.length();
+        int i = 0;
+        Node* curr = root;
+        while (i < n) {
+            char c = word[i++];
+            if (!curr->arr[c - 'a']) {
+                // we will add
+                curr->arr[c - 'a'] = new Node();
+            }
+            curr = curr->arr[c - 'a']; //move to check new prefixes. very obvious once "new" executed then all other char has to be inserted using new since "new node is initialized just now so nullptr na"
+        }
+        curr->isWord = true;
+    }
+    
+    bool search(string word) {
+        Node* curr = root;
+        int n = word.length();
+        int i = 0;
+        while (n--) {
+            char c = word[i++];
+            if (!curr->arr[c - 'a']) {
+                return false;
+            } else {
+                curr = curr->arr[c - 'a'];
+            }
+        }
+        return curr->isWord;
+    }
+    
+    bool startsWith(string prefix) {
+        int n = prefix.length();
+        int i = 0;
+        Node* curr = root;
+        while (i < n) {
+            char c = prefix[i++];
+            if (!curr->arr[c - 'a']) {
+                return false;
+            } else {
+                curr = curr->arr[c - 'a'];
+            }
+        }
+        return true;
+    }
+};
