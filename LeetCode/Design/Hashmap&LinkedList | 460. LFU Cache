@@ -1,0 +1,177 @@
+LFU is about eviction by frequency and if tie, then recency
+normally put keys in map mapped to value
+
+but if size hit capacity we have to remove lfu/lru key
+
+on every get(key) -> key freq incemanet by 1,
+on evry put(sameKey, newValue/sameValue) -> key freq increased by 1,
+
+every new node hve freq 1.
+
+soln:
+
+one map for normal key value lookup
+
+one map with buckets of freq 1 to N each bucket contains a grp of "keys" (in linkedlist ds) which have that much freq.
+cap: allowed size 6
+freq   grp
+3 -> k1, k2, k3 //if newkey arrived then my victim is from this list 
+4 -> k5, k7
+5 -> k4
+1, 2 buckets are empty (in map does not exists we erase those buckets explcitly)
+k6 evicted maybe it was lfu or lru
+
+minFreq is 3 now if new key k8 arrives freqList[minfreq].pop_back() // as back will repr lru when multiple have same freq
+then insert k8 in bucket with freq 1
+freq   grp
+1 -> k8 
+3 -> k1, k2
+4 -> k5, k7
+5 -> k4
+minfreq is reset to 1 as new elemenet added
+
+
+
+
+each get/put to a exisinting key implies its freq increased by 1 so
+remove from curr bucket 
+insert into bucket forward to curr bucket (+1)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+flow:
+get k -> if not exist return -1
+        -> if exist bump freq by 1 => remove from existing bucket + add to next bucket 
+        -> return value
+
+put k, v -> if key exist modify its value and
+            move from one bucket to next  
+            kfreq[key]++ //as its modified and moved to new bucket... kfreq["key"] point to new bucket
+            and 
+            return
+         -> if dont exist check wether our cache have space/ cap != kv.size
+         -> if not eviction time
+            -> evict from minFreq bucket and remove from end ==> end always satisfy lru and lfu
+            //cleanup
+            -> erase key from kv map. it dont exist anymore
+            -> erase key from kfreq too its gone
+        //always runs if new key no matter whether there was eviction or not 
+         -> create a new key value pair in kv.
+         ->insert 1 in freq record as kFreq[key] = 1; 
+         -> push at front (not back as its most recently used) in bucket of minfreq 
+
+
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+LFU operations
+get() - O(n)
+put() - O(n)
+Note: can optimize to O(1) using 4 hashmaps instead of 3. use a mapping  to list<int>::iterator (ptr to node in stl cotainer)
+
+Logic: bumping keys in linkedLists on every get/put. here list size is dynamic.
+linkedList used bcz O(1) operations, insertion to front(when increse freq by 1) and removal from end:lru (when cap hits and had to evict lfu + lru)
+
+DataStructures used:
+3 map + multiple linked lists (worst case : number of linked lists == capacity)
+variable: minFreq(idx of lfu list in freqList),
+          capacity_  //tell when to evict if(kv.size() == cap)
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+1.kv -> key, value
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+2.kFreq -> key, freq  //freq of each key: how many time we accessesd it yani get/put ===> look up O(1)
+
+-> use: On every put when key already exist we not only need to modify its value but also have to change its pos in freqList
+its pos? how can we get pos of a key in freqList? 
+In which list does this key exists? //each list repr a freq grp
+
+kfreq answers thats
+
+then we use that value(currFreq) from "kfreq" 
+to erase the node from freqList[currFreq] and 
+put it in freqList[currFreq + 1] and 
+
+update kfreq[key] by 1 to track latest pos.
+so in future if we have to update this key value so we can agin answer in O(1). In which list it exist and bump by 1 // every get put only inc freq by 1
+
+eg. kFreq[key] gives currfreq:  kFreq[45] o/p 5currfreq:  // with this ds no need to scan whole freqList for "bump". not used for eviction we track minfreq explicitly
+implies '45' :  1 for put,  get/putNewValue(modify) 4 times------> implies it exist in freqList[5]
+freq: number of time we hve accesed key (get/put)
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+3.freqList -> freq (1 to N), linkedList conatining all "keys" having tht freq  
+group keys by freq (worst case: all elements have frequency 1. so list size hits capacity but its manageable)
+worst case size: N
+
+in lfu we evict from minFreq and new elements are also added to this same minFreq idx.
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DETAILS:
+
+class LFUCache {
+public:
+    unordered_map<int,int> kv;
+    unordered_map<int,int> kfreq;
+    unordered_map<int,list<int>> freqGrp;
+    int minFreq;
+    int cap;
+
+    LFUCache(int capacity) {
+        cap = capacity;
+    }
+    
+    int get(int key) {
+        if (!kv.count(key)) return -1;
+
+        int fIdx = kfreq[key];
+        
+        list<int>::iterator it; //reason of O(n) make map to remove this loop
+        for (it = freqGrp[fIdx].begin(); it != freqGrp[fIdx].end(); it++) {
+            if (*it == key) {
+                break;
+            }
+        }
+
+        freqGrp[fIdx].erase(it);
+        if (freqGrp[fIdx].empty() && minFreq == fIdx) minFreq++;
+        freqGrp[fIdx + 1].push_front(key);
+        kfreq[key]++;
+
+        return kv[key];
+    }
+    
+    void put(int key, int value) {
+        if (kv.count(key)) {
+            kv[key] = value;
+
+            int fIdx = kfreq[key];
+
+            list<int>::iterator it; //same reason of O(n) make map to remove this loop
+            for (it = freqGrp[fIdx].begin(); it != freqGrp[fIdx].end(); it++) {
+                if (*it == key) {
+                    break;
+                }
+            }
+
+            freqGrp[fIdx].erase(it);
+            if (freqGrp[fIdx].empty() && minFreq == fIdx) minFreq++;
+            kfreq[key]++;
+            freqGrp[fIdx + 1].push_front(key);
+            
+            return;
+        }
+
+        if (cap == kv.size()) {
+            int lastK = freqGrp[minFreq].back();
+            freqGrp[minFreq].pop_back();
+            kv.erase(lastK);
+            // if (freqGrp[minFreq].empty()) {  //no need as minfreq get resetted
+            //     minFreq++;
+            // }
+        }
+
+        kv[key] = value;
+        kfreq[key] = 1;
+        freqGrp[1].push_front(key);
+        minFreq = 1;
+    }
+};
