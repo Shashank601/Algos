@@ -8,8 +8,14 @@ it become exactly equal too "HOUSE ROBBER" cant rob adj  (freq - 1), freq, (freq
                                                        1.    ^                    ^    or
                                                        2.              ^
 
+nums = [1, 1000]
 
+id:    0  1  2  3  4  5  6 ...  1000
+freq:  0  1  0  0  0  0  0 ...    1
+dp:    0  1  1  1  1  1  1 ...  1001 <  max(dp[i - 1], dp[i - 2] + freq[1000]*1000) => max(1, 1 * 1000)   
 
+in gaps prev/dp[i - 1] value get propgated as taking curr will yield 0
+  
 class Solution {
 public:
     int deleteAndEarn(vector<int>& nums) {
