@@ -32,7 +32,7 @@ string jump karengi diff buckets me based on method calls
 
 2 maps use honge 
 first to find str is in which node
-second to find at which loc in that node list's  yani iterator //O(1) ke lie easy access of string in a bucket 
+second to find at which loc in that node list`s  yani iterator //O(1) ke lie easy access of string in a bucket 
 
 
 2 pointers 
