@@ -27,7 +27,11 @@ public:
 
         //output: sum of deleted char points
 
-        //len is 1000 => tc possibilites: O(n), O (n^2)
+        // len is 1000 => tc possibilites: O(n), O(log n), O(n logn), O (n^2)? =>
+        // O(n) not possible bcz we have two strings both can be totally different so need to process both
+        // O(log n) not possible as search space is nothalving
+        // O(n Logn) not possible as not sortings
+        // O(n*m) => O(n^2)
 
         //is lowercase?
         int n = s1.length();
