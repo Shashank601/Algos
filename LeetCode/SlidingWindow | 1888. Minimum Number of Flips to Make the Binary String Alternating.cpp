@@ -69,6 +69,36 @@ also rotaion cost "free"
 
 
 
+
+CHATGPT:
+
+best alignmment visully:
+
+s = "010"
+
+A = 010101...  
+B = 101010...
+
+All rotations k
+k = 0: "010" → "010"
+k = 1: "010" → "100"
+k = 2: "010" → "001"
+
+Comparison with targets
+k=0: "010" vs "010" → mismatches = 0  BEST ALIGNMENT😍 => cost 0, not even need to flip any bit
+k=1: "100" vs "010" → mismatches = 2
+k=2: "001" vs "010" → mismatches = 2
+
+
+TIP: for conevrsion
+  stoi('1') => 48 string to int will make it ascii 
+    '1' - '0'  => 1 right way for this problem
+
+TIP:
+input is a string so alteranting seq must be string so we can compare index wise 
+
+int alt = 10101; wrong very complex to fetch digits
+string alt = "101010" rigth way easy to fetch digits (eg. s[2] - '0')
   
 
 DETAILS:
@@ -83,7 +113,7 @@ public:
         alt.reserve(n);
 
         //building target string: 1010...
-        char bit = '1';
+        char bit = '1'; // bug: int, fix: make it char 
         for (int i = 0; i < 2 * n; i++) {
             alt.push_back(bit);
             bit = '1' == bit ? '0' : '1';
