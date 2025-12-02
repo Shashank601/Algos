@@ -1,8 +1,10 @@
 step1.
 2 vectors
-a. len/lis vector => len of LIS at 'i';
-b. count vector => stores count of the longest IS at i => answers how many lis we have at 'i';
------------------------------------------------------------------------------------------
+a. len/lis vector => len of LIS ENDING ENDING ENDING ENDING ENDING at 'i';
+b. count vector => stores count of the longest IS at i => answers how many lis we have ENDING ENDING ENDING ENDING ENDING at 'i';
+
+key: "ENDING at i"
+---------------------------------------------------------------------------------------------------------------------
 step2.
 
 the obvious EXTENSION check:
