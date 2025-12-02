@@ -12,13 +12,14 @@ key component TAILS vector:
 
 1.we will maintain a vector which will append curr value if its greater than all value in tails vector
 2.if curr value is smaller than tails max  
-we will either put it at its lowerBound or
+we will either put it at its lowerBound and 
+never
 skip it completely
 
 eg. [0 0 3]  currVal is 2
 
-=>  [0 2 3] wrong
-=>  [0 0 3] right, skipped 2
+=>  [0 0 3] wrong
+=>  [0 0 2] right, 2 is not skipped
 
 because Partion sorting have this rule that 
 a larger value will always be better value to overwrite it will never decrease LIS
