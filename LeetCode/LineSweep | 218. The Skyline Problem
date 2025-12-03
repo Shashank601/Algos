@@ -19,6 +19,7 @@ for each event
   process active structure
 
 Q. def "start" and "end" clearly. what do you mean by something being active??
+A. it means if somthing is in set/stack/map... => if you pushed some obj but havent popped yet its means its ongoing/breathing..
 
 
 #DETAILS:
