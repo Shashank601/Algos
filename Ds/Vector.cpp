@@ -1,3 +1,42 @@
+if the requested size fits inside the heap chunk the C++ allocator already has => no syscall.
+if the allocator needs more PAGES => one syscall, eg. mmap or sbrk
+
+If we create two vectors, 
+we get two separate heap allocations, means:
+    
+Worst case: 2 syscalls (one for each vector’s initial buffer)
+Best case: 0 syscalls (if the runtime fulfills them from existing heap memory)
+
+so, heap alloc != sys call 
+
+
+Heap allocation does not always mean a syscall.
+
+Break it cleanly:
+
+1. malloc/new often serve memory from user-space arenas
+No syscall. Just pointer arithmetic inside glibc’s heap arena.
+
+2. Syscalls only happen when allocator needs more pages  (okk)
+
+That’s when we see:
+
+mmap
+brk / sbrk
+
+This happens only when the ALLOCATOR`s CURRENT arena is exhausted.
+
+
+
+so,
+heap allocation => maybe syscall
+syscall         => definitely heap expansion
+
+but when large vector => occasional syscalls maybe
+
+
+
+    
 #include <iostream>
 using namespace std;
 
@@ -51,3 +90,5 @@ public:
 //     for (int i = 0; i < v.size(); i++)
 //         cout << v[i] << " ";
 // }
+
+
