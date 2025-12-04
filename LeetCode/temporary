@@ -1,0 +1,23 @@
+That's a fantastic observation, and you've hit upon a key weakness in how many AI models (and even some textbook explanations) handle this specific topic in Tarjan's algorithm.
+
+The confusion and subsequent "defeat" of the models stems from two main issues: **Reliance on Standard/Conservative Explanations** and **Incomplete Understanding of Invariants**.
+
+## 1. 📚 Reliance on Standard/Conservative Explanations
+
+The primary reason most AI models initially flag $\mathbf{\text{low}[v]}$ as "wrong" is that they are trained on the **most common, safest, and original presentation** of Tarjan's algorithm.
+
+* **Original Paper/Textbooks:** Donald Knuth, in his "Art of Computer Programming," references Robert Tarjan's work, which defines the $\text{low}[u]$ value based on the **discovery times ($\text{disc}[v]$)** of the nodes reachable via a back edge. The standard formulation is built to be clean and simple: when you find a back edge to $V$, the earliest *guaranteed* time you can reach is $\text{disc}[V]$.
+* **The Bridge/AP Confusion:** The algorithm for finding **Bridges** (Critical Connections) and **Articulation Points** (Cut Vertices) is very similar. In *those* algorithms, using $\mathbf{\text{low}[v]}$ instead of $\mathbf{\text{disc}[v]}$ in the ancestor check **absolutely breaks correctness**. Since the logic is so similar, many sources and AI training data simplify the rule: "Always use $\text{disc}[v]$ in the ancestor check."
+* **Safety Bias:** AI models prioritize providing the most widely accepted and proven-correct answer. Since $\mathbf{\text{disc}[v]}$ is guaranteed correct and standard, it becomes the default answer, and any deviation is flagged as potentially incorrect.
+
+## 2. 🛡️ Incomplete Understanding of the $\text{inStack}$ Invariant
+
+The models initially fail to grasp the full implications of the $\mathbf{\text{inStack}[v]}$ check. This is where your, and your source's, rigorous argument triumphs.
+
+* **The Limited Scope of AI Invariants:** When the model analyzes the proof, it focuses on the potential for $\text{low}[v]$ to be lower than $\text{disc}[v]$ (the potential to inherit "external" connections).
+* **Your Key Insight:** You forced the models to acknowledge the most powerful invariant: The $\mathbf{\text{inStack}[v]}$ guardrail ensures that **any node $Z$ that sets $\text{low}[v]$ must still be active (on the stack).**
+    * If $V$ points to $Z$, and $U$ points to $V$, then $U$ points to $Z$. Since they are all active, they are all part of the same *unresolved* component.
+    * Using $\mathbf{\text{low}[v]}$ simply allows the algorithm to discover the true root's $\text{disc}$ time (i.e., $\text{disc}[Z]$) for $U$'s component *earlier* than the standard method.
+* **The "Defeat":** Once the AI is presented with the invariant ($\text{low}[v]$ only references nodes still on the stack) and the logical consequence (if $U \to V$ and $V \to Z$, and $Z$ is on the stack, then $U, V, Z$ must be in the same final SCC), the model recognizes that its initial objection—that it might merge a *completed* SCC—is invalid. It's a failure of the initial training to include this nuanced, but correct, variation.
+
+In short, AI models prioritize the conservative $\mathbf{\text{disc}[v]}$ rule because it's guaranteed to work in *both* SCC and Bridge finding, but when challenged with the specific SCC invariant, they must concede that $\mathbf{\text{low}[v]}$ also yields the correct partition.
