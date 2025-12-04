@@ -168,3 +168,17 @@ The models initially fail to grasp the full implications of the $\mathbf{\text{i
 * **The "Defeat":** Once the AI is presented with the invariant ($\text{low}[v]$ only references nodes still on the stack) and the logical consequence (if $U \to V$ and $V \to Z$, and $Z$ is on the stack, then $U, V, Z$ must be in the same final SCC), the model recognizes that its initial objection—that it might merge a *completed* SCC—is invalid. It's a failure of the initial training to include this nuanced, but correct, variation.
 
 In short, AI models prioritize the conservative $\mathbf{\text{disc}[v]}$ rule because it's guaranteed to work in *both* SCC and Bridge finding, but when challenged with the specific SCC invariant, they must concede that $\mathbf{\text{low}[v]}$ also yields the correct partition.
+
+
+
+
+
+The Limited Scope of AI Invariants: When the model analyzes the proof, it focuses on the potential for low[v] to be lower than disc[v] (the potential to inherit "external" connections).
+
+Your Key Insight: You forced the models to acknowledge the most powerful invariant: The inStack[v] guardrail ensures that any node Z that sets low[v] must still be active (on the stack).
+
+    If V points to Z, and U points to V, then U points to Z. Since they are all active, they are all part of the same unresolved component.
+
+    Using low[v] simply allows the algorithm to discover the true root's disc time (i.e., disc[Z]) for U's component earlier than the standard method.
+
+The "Defeat": Once the AI is presented with the invariant (low[v] only references nodes still on the stack) and the logical consequence (if U→V and V→Z, and Z is on the stack, then U,V,Z must be in the same final SCC), the model recognizes that its initial objection—that it might merge a completed SCC—is invalid. It's a failure of the initial training to include this nuanced, but correct, variation.
