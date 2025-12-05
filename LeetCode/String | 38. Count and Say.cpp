@@ -2,6 +2,10 @@ class Solution {
 public:
 
 //There is no rule that “char + char = char”. That is wrong.
+// res += (('0' + freq) + currCh); //glt
+// vs
+// res.push_back('0' + freq); //shi
+// res.push_back(currCh);
     string countAndSay(int n) {
         if (n == 1) {
             return "1";
@@ -39,13 +43,13 @@ public:
                 r++;
             }
 
-            //skipping approach inplace for now,
+            //skipping inplace  approach for now,
 
             //2 in
             //12 out
 
-            //currCh and freq
-            //res += (('0' + freq) + currCh);
+            //use currCh and freq 
+            //res += (('0' + freq) + currCh); wrong ladle
             res.push_back('0' + freq);
             res.push_back(currCh);
 
