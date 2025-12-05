@@ -203,3 +203,6 @@ Great! The logic for the Meet-in-the-Middle strategy is now fully established.
     Step 2: Generate L_sums[i] and R_sums[j] using bitmasking (buckets based on size).
 
     Step 3: Iterate through all i from 0 to n and binary search for the complementary sum SR​ in R_sums[n−i] to find the minimal difference ∣Stotal​−2S1​∣.
+
+
+in last step can you clarify how  picking from both okkk i got it why its bcz we skip the step and tc becomes (2^n/2)*(n lookup)
