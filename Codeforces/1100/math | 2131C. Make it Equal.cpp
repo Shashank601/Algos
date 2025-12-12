@@ -1,4 +1,162 @@
-When we have min(x mod k, k - (x mod k)) == min(y mod k, k - (y mod k)),
+1.reasoning for giving label to a set {s, k - s}:
+
+What is the theorem?
+
+Two unordered pairs {a, b} and {c, d} are equal
+iff
+min(a, b) = min(c, d) AND max(a, b) = max(c, d).
+we only need min because k fixes max automatically.
+
+
+Why does min(r, k−r) uniquely identify the class?
+
+Because:
+
+If C₁ = C₂, then the unordered sets are equal:
+{ r, k − r } = { s, k − s }
+
+That means:
+
+either r = s
+or r = k − s.
+
+In both cases:
+
+min(r, k − r) = min(s, k − s)
+
+
+
+Case A: r = s
+→ min(r, k−r) = min(s, k−s). Trivial.
+
+Case B: r = k−s
+→ {r, k−r} = {k−s, s}
+→ same unordered pair
+→ min(r, k−r) = min(s, k−s). Also trivial.
+
+This is just comparing two unordered 2-element sets.
+Their element-wise minimum is identical iff the sets themselves are identical.
+
+
+
+2. from x if +-k inf jump is  allowed then reachable num will have
+remainder r or k - r    (x%k == r)
+
+and also a num made by +- i*k in x will always have mod = x%k and k - r
+
+
+
+3. resoning for k - r is below 
+
+
+x = qk + r
+i = q+1
+
+|x - i*k|
+= |qk + r - (q+1)k|
+= |r - k|
+= k - r
+= k - (x % k)
+
+[
+keep subtracting 
+k from x until the value goes below zero.
+
+The exact subtraction where it crosses zero is:
+i = floor(x/k) + 1    
+
+so now 
+r - k   (is a small negative number)
+
+And taking absolute value flips the sign:
+|r - k| = k - r                     <-- complimentary remainder 
+
+]
+
+is 23 reachble to 27 ?
+
+let say x = 23 and k = 10
+r = 3 % 10 = 3
+
+first r clas:
+all numbers of form 3 + 10t
+-> ..., -17, -7, 3, 13, 23, 33, 43, ...
+
+Now FORCE the flip
+-> ..., 7, 17, 27, 37, 47, ...
+
+
+23 → 13 → 3 → 7 → 17 → 27
+Therefore:
+
+23 (rem 3) reaches 3
+3 reaches 7 (kyuki flipped as asked in ques)
+7 reaches 27 (rem 7)
+All these numbers are connected through legal moves.
+
+
+
+
+again,
+why we hash using min() fn 
+
+When are two classes the same?
+
+Two classes:
+
+C₁ = { r, k − r }
+C₂ = { s, k − s }
+are equal iff the sets contain exactly the same elements.
+
+This happens in exactly two cases:
+r = s or  r = k − s
+
+and 
+every number x can only be transformed into other numbers
+that belong to one or two specific remainder classes modulo k as shown above
+
+The problem is not about matching si​ to ti​; 
+it's about matching the total "supply" of transformation potential in S 
+to the total "demand" in T.
+
+FINALLY DONE!!!
+
+
+---------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*When we have min(x mod k, k - (x mod k)) == min(y mod k, k - (y mod k)),
 
 we're finding the distance to the nearest multiple of k 
 
@@ -283,7 +441,7 @@ k−r  => r is xmodk so finally k - xmodk
  The moment you subtract enough k's to cross 0, the leftover “gap” is k - (x % k).
 
 
-
+*/
 
  
 
