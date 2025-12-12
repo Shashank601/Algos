@@ -1,3 +1,67 @@
+When we have min(x mod k, k - (x mod k)) == min(y mod k, k - (y mod k)),
+
+we're finding the distance to the nearest multiple of k 
+
+for both x and y.
+
+
+
+
+min(x mod k, k - (x mod k)) eg.
+Let's say k = 10:
+
+If x = 23:
+
+x mod k = 23 mod 10 = 3 (distance forward to next multiple)
+k - (x mod k) = 10 - 3 = 7 (distance backward to previous multiple)
+min(3, 7) = 3 ✓
+
+
+If x = 27:
+
+x mod k = 27 mod 10 = 7 (distance forward)
+k - (x mod k) = 10 - 7 = 3 (distance backward)
+min(7, 3) = 3 ✓
+
+
+
+Both 23 and 27 have the same minimum distance (3) TO A multiple of k = 10!
+Why are they equal?
+Because:
+
+23 is 3 away from 20 (going backward)
+27 is 3 away from 30 (going forward)
+
+key
+If min(x mod k, k - (x mod k)) == min(y mod k, k - (y mod k)), 
+
+then:
+Either x and y are the same distance from a multiple of k, which means:
+
+|x - y| mod k == 0 (they differ by a multiple of k), OR
+(x + y) mod k == 0 (they're mirror images around a multiple of k)
+
+
+in simple words,
+
+min(3, 10-3) = min(3, 7) = 3
+min(7, 10-7) = min(7, 3) = 3
+Both numbers are 3 steps away from position 0 on the circular clock of 10...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+------------------------------------
 finally,
 
 keep subtracting 
@@ -21,6 +85,50 @@ so x can be converted into nums y which
 
     x%k  ==  y%k         (+)
 k - x%k  == k - y%k      (-) //k - r
+
+
+
+Since every number reachable from x has remainder either r or k−r, 
+and both those remainders can be transformed into the smaller of the 
+two by subtracting k repeatedly
+
+
+(to get the remainder itself) or flipping,
+mapping every element to min(r,k−r) 
+gives a unique canonical representative
+for that whole reachable class. 
+
+Two original numbers are mutually 
+transformable iff their canonical representatives are equal.
+----------------------------------------------------------------------------
+a num made by +- k in x will always have mod = x%k and k - r
+now i dont get where this min come from:
+
+Take any x. Let r = x % k. Its reachable set is:
+{ r, k − r }  //any num wiith this modulos is reachable
+Call this the “pair” of x. / or id of x
+
+
+If two numbers x and y have the same min(r, k−r), then:
+
+
+min(r, k−r) = min(s, k−s)  (for y)
+This can only happen if the sets themselves are the same:
+
+{r, k−r} = {s, k−s}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
