@@ -1,0 +1,181 @@
+finally,
+
+keep subtracting 
+k from x until the value goes below zero.
+
+The exact subtraction where it crosses zero is:
+i = floor(x/k) + 1
+
+so now 
+r - k   (is a small negative number)
+
+And taking absolute value flips the sign:
+|r - k| = k - r                     <-- complimentary remainder : 
+
+
+ The moment you subtract enough k's to cross 0, the leftover “gap” is k - (x % k).
+
+
+
+so x can be converted into nums y which 
+
+    x%k  ==  y%k         (+)
+k - x%k  == k - y%k      (-) //k - r
+
+
+
+now 
+The problem is not about matching si​ to ti​; 
+it's about matching the total "supply" of transformation potential in S 
+to the total "demand" in T.
+
+basically frequency match
+
+also to solve this is:
+
+Group S: Count the total frequency for each canonical remainder class in S (using min(r,k−r) as the key).
+Group T: Count the total frequency for the same canonical remainder classes in T.
+Match: If the frequency map for S perfectly matches the frequency map for T, 
+the answer is YES. Otherwise, it's NO.
+
+
+
+ 
+
+
+
+The sequence ∣x−i⋅k∣ demonstrates that regardless of how many times you subtract k,
+the remainder is guaranteed to be either r or k−r.
+Therefore, 
+checking abs(x−k)(modk) is too narrow because it only 
+checks i=1, while the set of all reachable remainders is defined by 
+the outcome for any sufficiently large i.
+
+in plain words, abs(x - k)%k => we cant reach (x - 2k)%k / (x - ik)%k 
+                  may be modulo still 4       but here it may change and if not then for some i it may chnage 
+
+
+x = 7 k = 3
+
+7 - 3 => 4
+3 - 7 => 4
+
+but 7 - 3(3) => 2 the remainder my approch could yield due to narrowness of fthe soln
+
+The "Flip": The remainder class only changes when you
+subtract enough k's (i.e., when i⋅k>x) to make the value cross below zero,( < vvvimp and ye mere approach skip kari by subtracting k only once)
+causing the absolute value to flip the sign.
+
+gotcha abs (x  - k)%k i didnt subtracted k enough times to reach a new ramainder class??
+yup!!!
+
+
+
+
+The remainder class only changes when you
+subtract enough k's (i.e., when i⋅k>x) to make the value cross below zero,
+causing the absolute value to flip the sign.
+
+x = 7 k = 3
+
+for abs:
+(7 - 0*(3)) % 3 is 1
+(7 - 1*(3)) % 3 is 1
+(7 - 2(3)) % 3 is 1
+
+
+
+but (7 - 3(3))%3 => -1 * 2 % 3  is  2          <- new remainder after subtracting k enough times ( sign flip as given in ques)
+
+now,
+key:
+that every number x can only be transformed into other numbers
+that belong to one or two specific remainder classes modulo k
+
+
+
+approach:
+
+Phase 1: Reaching the Initial Remainder (r)
+
+This phase uses repeated subtraction to find the smallest non-negative representative of the initial remainder class.
+Operation	Value (y)	Calculation	Remainder y(mod3)	Class
+
+The remainder r=1 is reached. 
+Any number in S with remainder 1 can now be transformed 
+into any other number with remainder 1 by repeatedly adding or subtracting k.
+
+Phase 2: Forcing the Flip (r→k−r)
+
+This phase takes the smallest non-negative value 
+from Phase 1 (y=1) 
+and applies the absolute difference operation one final time. 
+Since y<k, this operation guarantees the remainder flip.
+
+
+so k - r remainder class is acheived by  k - (x%k) 
+
+
+
+
+
+x =  qk + r    0 <= r < k  : r = xmodk
+|x - ik| 
+= |(qk + r) - (q+1)k|   :(here i = q+1 for first negative as i = floor(x/k) + 1  ) 
+= |r - k|                          (r - k is negative so its k - r) 
+= k - r   +And since r=x%k
+gives => k - x%k  phase 2 hai
+
+-----------------------------------------
+
+
+
+
+
+
+again,
+x = qk + r
+i = q+1
+
+|x - i*k|
+= |qk + r - (q+1)k|
+= |r - k|
+= k - r
+= k - (x % k)
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+so |x - ik| 
+with  i = floor(x/k) + 1      <--- first new remainder class bcz  i = q pe bhi    x - qk = r non negative hai
+gives => k - x%k
+
+and when r = 0 => k - r = k => 0modk
+
+
+
+q + 1 is the first value of  i that makes the expression
+x−ik
+negative, 
+
+which is required for the absolute value to produce the complementary remainder 
+k−r  => r is xmodk so finally k - xmodk
+*/
+
+
+ The moment you subtract enough k's to cross 0, the leftover “gap” is k - (x % k).
+
+
+
+
+ 
+
