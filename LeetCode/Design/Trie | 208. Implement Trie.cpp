@@ -1,3 +1,77 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+class Node {
+public:
+    Node* ls[26];  <--  Node* ls; gave seg fault
+    bool isWord;
+};
+
+class Trie {
+public:
+    Node* root;
+    Trie() {
+        root = new Node();
+    }
+    
+    void insert(string word) {
+        Node* temp = root;
+
+        for (char c : word) {
+            int idx = c - 'a';
+            if (temp->ls[idx] == nullptr) {
+                temp->ls[idx] = new Node();
+            }
+            temp = temp->ls[idx];
+        }
+
+        temp->isWord = true;
+    }
+    
+    bool search(string word) {
+        Node* temp = root;
+        for (auto c : word) {
+            int idx = c  - 'a';
+            if (!temp->ls[idx]) {
+                return false;
+            }
+            temp = temp->ls[idx];
+        }
+        return temp->isWord;
+    }
+    
+    bool startsWith(string prefix) {
+        Node* temp = root;
+        for (auto c : prefix) {
+            int idx = c - 'a';
+            if (!temp->ls[idx]) {
+                return false;
+            }
+            temp = temp->ls[idx];
+        }
+        return true;
+    }
+};
+
+int main() {
+    Trie* obj = new Trie();
+    obj->insert("shashank");
+    obj->insert("raghuvanshi");
+    cout << obj->search("shasha") << '\n';        o/p => 0
+    cout << obj->startsWith("shasha") << '\n';    o/p => 1
+    return 0;
+}
+
+
+
+
+
+
+
+------------------------------------------------------
+
+
+  
 Node defn:
 ->list of Node pointers (26) :-  every char presence(prefix to be more accurate)
 ->bool isEnd
