@@ -22,6 +22,133 @@ public:
     }
 };
 
+14Dec
+#define pf push_front
+class Buck {
+public:
+    int freq;
+    list<string> ls;
+    Buck *prev, *nxt;
+    Buck(int f = 0) : freq(f), prev(nullptr), nxt(nullptr) {}
+};
+
+class AllOne {
+public:
+    unordered_map<string, Buck*> strBuck; //tells the buck it is in
+    unordered_map<string, list<string>::iterator> strIter; // tell the buck it is in
+
+
+    Buck *head, *tail;
+    AllOne() {
+        head = new Buck();
+        tail = new Buck();
+        head->nxt = tail;
+        tail->prev = head;
+    }
+
+    void insertAfter(Buck* curr, Buck* after) {
+        after->nxt = curr->nxt;
+        after->prev = curr;
+
+        curr->nxt = after;
+        after->nxt->prev = after;
+    }
+
+    Buck* getNxt(Buck* curr) {
+        Buck* buck = curr->nxt;
+        if (buck->freq != curr->freq + 1) {
+            buck = new Buck(curr->freq + 1);
+            insertAfter(curr, buck);
+        }
+        return buck;
+    }
+
+    Buck* getPrev(Buck* curr) {
+        Buck* buck = curr->prev;
+        if (buck->freq != curr->freq - 1) {
+            buck = new Buck(curr->freq - 1);
+            insertAfter(curr->prev, buck);
+        }
+        return buck;
+    }
+    
+    void remove(Buck* curr) {
+        curr->prev->nxt = curr->nxt;
+        curr->nxt->prev = curr->prev;
+        delete curr;
+    }
+    void inc(string key) {
+        if (!strBuck.count(key)) {
+            Buck* buck = head->nxt;
+            if (buck->freq != 1) {
+                Buck* newBuck = new Buck(1);
+                insertAfter(head, newBuck);
+                buck = newBuck;
+            }
+            buck->ls.pf(key);
+            strBuck[key] = buck;
+            strIter[key] = buck->ls.begin();
+        } else {
+            Buck* curr = strBuck[key];
+            curr->ls.erase(strIter[key]);
+
+            Buck* buck = getNxt(curr);
+
+            buck->ls.pf(key);
+            strBuck[key] = buck;
+            strIter[key] = buck->ls.begin();
+
+            if (curr->ls.size() == 0) {
+                remove(curr);
+            }
+
+        }
+        
+    }
+    
+    void dec(string key) {
+        Buck* buck = strBuck[key];
+        buck->ls.erase(strIter[key]);
+
+        Buck* oldBuck = buck;
+        
+        if (buck->freq == 1) {
+            strIter.erase(key);
+            strBuck.erase(key);
+
+
+        } else {
+            buck = getPrev(buck);
+            buck->ls.pf(key);
+            strIter[key] = buck->ls.begin();
+            strBuck[key] = buck;
+        }
+        if (!oldBuck->ls.size()) {
+            remove(oldBuck);
+        }
+    }
+    
+    string getMaxKey() {
+        Buck* temp = tail->prev;
+        return (temp == head) ? "" : *(temp->ls.begin());
+    }
+    
+    string getMinKey() {
+        Buck* temp = head->nxt;
+        return (temp == tail) ? "" : *(temp->ls.begin());
+    }
+};
+
+ //dmy ko link
+
+ //list<string>*  => ptr to a ds,  used with new or pointing to existing list (not inside list)
+ 
+
+
+
+
+
+-----------------------------------------
 isme m freq buckets ka concept use karunga
 har bucket strings ki ek list ko conatain karegi
 
