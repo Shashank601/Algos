@@ -1,6 +1,10 @@
 one global dll
 one global map for O(1) access
 
+O(1) get
+O(1) put
+O(1) eviction
+
 class Node {
     int key 
     ->  last node ki key kiya h we dont know (if we dont have this field)
@@ -14,7 +18,7 @@ class Node {
 class LRUCache {
 public:
     unordered_map<int,Node*> m;
-    ->give acces to all nodes in O(1)
+    ->give access to all nodes in O(1)
     -> get xyz => so we do m[xyz] to get node pointer
 
     void remove(Node* curr);  only removes link not delete
@@ -22,7 +26,7 @@ public:
     void moveToFront(Node* curr); remove call karlega phir usko front p add karedega
 
     LRUCache(int capacity); 
-    -> sari dummy nodes adjust ko build karo
+    -> sari dummy nodes build karo and connect them
     -> (vvvvimp) jab dummy node declare kardi jaye, tab never ever assign to head always use head->next
      
     
@@ -30,7 +34,7 @@ public:
     int get(int key);
     
     void put(int key, int value) {
-         1. agar key already hai tho jus move it forward
+         1. agar key already hai tho jus move it forward and CHANGE its VALUE
          2. check size if full remove and erase from map
          3. now just create new Node
             -> new node ki 2 fields
