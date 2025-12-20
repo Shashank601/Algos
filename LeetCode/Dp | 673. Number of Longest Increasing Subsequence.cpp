@@ -189,5 +189,4 @@ public:
 
 --------------------------------------------------------------
 DP 80x completed at 2|12|2025 7.20pm
-kal erm ka ppr h😭
-next Target DP 150x 
+next target 120x
