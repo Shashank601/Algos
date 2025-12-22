@@ -52,6 +52,12 @@ public:
 
 };
 
-
+Before I pop k
+I must completely destroy
+everything 
+on its left
+    and 
+everything 
+on its right
 
 
