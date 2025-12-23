@@ -41,3 +41,12 @@ public:
     }
 };
 
+so also dp[i][j] is just max(1, best - curr) ???
+yes 
+
+for (i--) {
+    for (j--) {
+        int best = min(dp[i + 1][j], dp[i][j + 1]);
+        dp[i][j] = max(1, best - dungeon[i][j]);
+    }
+} works fine..
