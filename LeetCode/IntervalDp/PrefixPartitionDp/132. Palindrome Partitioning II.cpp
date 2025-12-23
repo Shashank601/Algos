@@ -33,4 +33,13 @@ public:
     }
 };
 
+dfs
+call f(0)
+it try first valid j
+    ->Calls f(j+1)
+    That again tries its first valid j
+
+        -> Goes deeper
+            Continues until it hits i == n (leaf)
+
 
