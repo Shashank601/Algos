@@ -15,3 +15,8 @@ Braces do not
 
 
 Brace initialization cannot be parsed as a function
+
+
+
+sfc /scannow
+
