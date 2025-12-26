@@ -309,3 +309,23 @@ We are not searching for elements; we are searching for combinations whose summa
 Once you see that, both 1755 and 2035 become the same skeleton.
 
 If this still feels weird, it means you’re still thinking at the array level instead of the subset-state level.
+
+
+
+mask = 0 -> 000 -> no elements
+mask = 1 -> 001 -> only iiHalf[0]
+mask = 2 -> 010 -> only iiHalf[1]
+mask = 3 -> 011 -> iiHalf[0] + iiHalf[1]
+mask = 4 -> 100 -> only iiHalf[2]
+...
+mask = 7 -> 111 -> all elements
+
+
+and  int i is 32bit 
+    
+so j will just check jth bit j <= 20
+
+meet-in-the-middle style, 
+so each half is usually ≤ 20.
+
+n <= 40 !!!
