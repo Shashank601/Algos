@@ -3,6 +3,31 @@ not positional dp as current state will transition to which state will be evalua
 3 choices per step/cell is teh key:
 
 
+Why all other states at i = 0 are ZERO
+At length 0:
+a = 1 → impossible (you can’t have an absence without a day)
+l = 1 or 2 → impossible (no characters exist)
+
+So:
+dp[0][1][*] = 0
+dp[0][*][1 or 2] = 0
+
+These are not “uninitialized”.
+They are logically invalid states.
+
+also,
+
+
+Because DP must derive length 1 from length 0.
+
+From dp[0][0][0] = 1, transitions generate: <---- ek empty seq me additions shuru honge ("" empty is valid)
+
+P → dp[1][0][0] += 1
+A → dp[1][1][0] += 1
+L → dp[1][0][1] += 1
+
+build forward from a single origin.
+
 
 #define MOD 1'000'000'007
 class Solution {
