@@ -109,7 +109,7 @@ Why not 4 or 5 choices?
 Because maxProduct[i-1] and minProduct[i-1] 
 already represent the best and worst products 
 ending at i-1. Any other product ending at i-1 
-is suboptimal and won't help.
+is suboptimal and won`t help.
 
 
 
