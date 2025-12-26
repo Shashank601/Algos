@@ -77,3 +77,44 @@ public:
         return ansLen;
     }
 };
+
+
+stale max ki dasatan:-
+
+
+"I already found a valid window of size N. Now I ONLY care about windows of size N+1 or bigger. Windows of size ≤N are DEAD TO ME - valid or not!"
+99 A's 99'randoms  99 B's  and k is 2
+
+The new max character was making its place QUIETLY in the window, 
+and then suddenly JUMPED when it got enough frequency to beat the old maxFreq!"
+
+After 100 iterations: the ENTIRE window content has changed
+97randoms gone 
+
+The stale maxFreq just means: 
+"I need to find a character that appears 100+ times in the new window content to beat my previous best.
+
+
+transition:
+size 100 no matter what in this keep sliding
+aaaa #### bbb
+
+suddenly b start appearing we didnt care keep sliding 
+####bbbbbbb
+
+now maxfreq have took a hit it increament finally / wind size increased 
+##bbbbbbbbbbbb
+
+now updation of ans gonna change / inc it
+
+so window only inc when ranodms are less then <= k and dominant is greater then old maxFreq
+
+ChatGPT said:
+Yes, it’s possible.
+The moment when maxFreq becomes greater than old maxFreq does NOT guarantee the window is valid.
+
+abcbdbebfbgbbbbbbbbbbbbbbbb -> invalid bro 
+
+
+We only expand the window when a character becomes more frequent
+than the most frequent character of any previously valid window.
