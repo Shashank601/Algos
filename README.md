@@ -13,5 +13,4 @@ It is not a project, library, or product.
 This repository exists solely for personal convenience.
 If you are looking for maintained or reusable code, look elsewhere.
 
-## Tip
-111^000 = 111
+
