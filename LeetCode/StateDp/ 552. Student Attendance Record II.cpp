@@ -1,3 +1,9 @@
+not positional dp
+
+3 choices per step/cell is teh key:
+
+
+
 #define MOD 1'000'000'007
 class Solution {
 public:
