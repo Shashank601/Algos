@@ -118,3 +118,7 @@ abcbdbebfbgbbbbbbbbbbbbbbbb -> invalid bro
 
 We only expand the window when a character becomes more frequent
 than the most frequent character of any previously valid window.
+
+
+
+Conceptually: grow until invalid => slide to restore =>  grow again    sliding window me hameshan yahi policy sahi h aggresive shrinking feels unoptimal 
