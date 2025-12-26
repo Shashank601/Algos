@@ -1,3 +1,4 @@
+stateMachine hi hai overall
 resembles 1911 but here is subarray  (contiguous nature)
 
 track maxSubarray at i - 1
