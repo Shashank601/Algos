@@ -1,4 +1,4 @@
-not positional dp
+not positional dp as current state will transition to which state will be evaluated by current input
 
 3 choices per step/cell is teh key:
 
