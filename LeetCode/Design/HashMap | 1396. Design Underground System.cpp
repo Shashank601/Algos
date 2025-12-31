@@ -17,7 +17,7 @@ public:
 
 
         string hashKey = name + "->" + stationName;
-        if (runSum.count(hashKey)) {
+        if (runSum.count(hashKey)) {                         <--- no need
             runSum[hashKey].first += timeTaken; 
             runSum[hashKey].second++; 
         } else {
@@ -93,7 +93,3 @@ both have collison use a separator in hashing
 
  */
 
-remove if else
-
-😭itni khushi 31|12|25
-first unseen problem solved w/o any help
