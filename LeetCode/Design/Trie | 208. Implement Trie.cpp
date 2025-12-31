@@ -73,7 +73,7 @@ int main() {
 
   
 Node defn:
-->list of Node pointers (26) :-  every char presence(prefix to be more accurate)
+->list of Node pointers (26) :-  every char presence(prefix to be more accurate)            <--- use unordered_map string -> Node*  (generalized for random Word nodes)
 ->bool isEnd
 
 one root node always exist (which repr "" prefix)
