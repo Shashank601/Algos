@@ -1,4 +1,4 @@
-//ALL this finsihes to a periodicity formula and a grundy num my moves cant end me up in a label 0 i will losse
+//ALL this finsihes to a periodicity formula and a grundy num, if my moves cant end me up in a label 0 position i will losse againt a optimall player
 
 
 class Solution {
