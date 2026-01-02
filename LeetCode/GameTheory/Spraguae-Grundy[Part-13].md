@@ -13,5 +13,3 @@ After a few examples, you realize Grundy numbers form patterns / mod formulas.
 This turns a “recursive, huge computation” problem (like 2.4 billion pile) into O(1) formula problems.
 when multiple games use XOR
 
-
-wasted my time on this niche bs😭
