@@ -4,7 +4,7 @@
 class Solution {
 public:
     bool canWinNim(int n) {
-        return n%4;// 1 2 3 i win 0 i end up on L pos
+        return n%4;// 1 2 3 i win as i will play optimally by keep my oponent at multiple of for |  0 i end up on L pos as oponent all can apply same startegy on me
     }
 };
 //strategy keep opponent at a multiple of 4 
