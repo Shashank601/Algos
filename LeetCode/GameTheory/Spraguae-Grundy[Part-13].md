@@ -13,3 +13,7 @@ Derive a formula (if possible).
 Apply for large n.
 
 This workflow works on all problems in the resources above.
+
+
+
+when multiple games use XOR
