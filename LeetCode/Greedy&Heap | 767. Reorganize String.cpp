@@ -1,5 +1,21 @@
 take two char with max freqs and interleave them now once one finsihed take out another ch with greater freq then remaining
 
+   <---- max -----  top    (will go back in next iter as prev <= top)
+   ------dmy ---->  prev
+    prev = top
+
+   <----IImax-----  top
+   ------max----->  prev
+
+   <---- max -----  top
+   -----IImax---->  prev
+
+   <----IImax-----  top
+   ------max----->  prev
+
+    evetually there will be only stale entrie with freq zeroes, 
+    loop will remove all of them w/o inserting anything
+
 class Solution {
 public:
     string reorganizeString(string s) {
