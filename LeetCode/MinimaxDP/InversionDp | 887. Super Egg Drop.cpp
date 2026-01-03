@@ -182,6 +182,12 @@ and can be treated as an independent subproblem.
 
 EVERYTHIN is about a startegy which we dont know exactly but we will find out as m inc
 
+Actually there is no Strategy,
+For 2 eggs, a clean strategy exists because there is only one possible break, so you can equalize worst cases with a simple decreasing-step plan.
+For k ≥ 3, there are multiple break points at different depths, creating an exponential decision tree, so no fixed sequence of drop floors can be written down.
+That’s why the problem flips to `dp[moves][eggs]`: it counts how many cases you can *guarantee* to distinguish, not where to drop.
+The DP itself is the strategy; trying to extract a simple rule like the 2-egg case is mathematically impossible.
+
 
 
 
