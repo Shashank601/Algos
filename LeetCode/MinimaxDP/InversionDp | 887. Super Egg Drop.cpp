@@ -29,7 +29,7 @@ m⬇️   0   1   2   3   4   5
 dp[m+3][k+2] ≥ dp[m][k]  (onlu thing gurateed is monotonictiy)
 
 
-With 2 moves and 2 eggs, you cannot safely check 4 floors. Here's why step by step:
+With 2 moves and 2 eggs, you cannot safely check 4 floors. Here`s why step by step:
 Let’s label the floors: 1, 2, 3, 4.
 You have 2 eggs and 2 moves.
 
@@ -173,7 +173,7 @@ If egg breaks → you know the critical floor is below, but the current floor it
 If egg survives → you know the critical floor is above, again, current floor is tested.
 So the +1 represents this exact floor being tested. Without it, you’d be ignoring the fact that you actually made a move and learned something about this floor.
 
-
+`
 
 So yes, given m moves and k eggs,
 the number of floors you can check is fixed (dp[m][k]) 
