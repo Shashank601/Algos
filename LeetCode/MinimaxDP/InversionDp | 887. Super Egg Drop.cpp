@@ -16,16 +16,16 @@ we survied we counf that LENGTH as above length ?
 
 
 
-
+          ⬇️ this row is egg=1 triggering a switch to linear search  can intialize in advance for conveinenice             
       k➡️  
 m⬇️   0   1   2   3   4   5
 --------------------------------
 0     0   0   0   0   0   0
 1     0  [1   1   1   1   1]
-2     0  [2] [3   3   3   3]
+2     0  [2] [3   3   3   3]    => 2moves  3eggs max is 3floor one throw from floor 1 [2] 3 1 loss maybe now only one move left and also only one floor
 3     0   3   6   7   7   7
-4     0   4  10  14  15  15
-5     0   5  15  25  30  31
+4     0   4  10  14 |15__15|
+5     0   5  15  25  30 |31|
 dp[m+3][k+2] ≥ dp[m][k]  (onlu thing gurateed is monotonictiy)
 
 
@@ -181,3 +181,31 @@ and can be treated as an independent subproblem.
 
 
 EVERYTHIN is about a startegy which we dont know exactly but we will find out as m inc
+
+
+
+
+
+class Solution {
+public:
+    int superEggDrop(int k, int n) {
+        // max move is n and max k is k
+        vector<vector<int>> dp(n + 1, vector<int>(k + 1, 0));
+
+
+        // dp[moves][eggs] = max floor i can guruanty we can find f in,  w/ moves moves and k eggs
+        // dp[0][k] is 0 
+        // dp[moves][0] is 0 
+        // for conveience you can intialize dp[m][1egg]
+        for (int moves = 1; moves <= n; moves++) {
+            for (int eggs = 1; eggs <= k; eggs++) {
+                dp[moves][eggs] = dp[moves - 1][eggs - 1] + 1 + dp[moves - 1][eggs];
+            }
+            if (dp[moves][k] >= n) return moves;
+        }
+
+        return 0;// never hiit
+
+    }
+};
+//  
