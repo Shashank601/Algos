@@ -23,7 +23,7 @@ public:
                           int nj = c + dy;
                           if (ni >= 0 && nj >= 0 && ni < n && nj < m && grid[ni][nj] == '1') {
                               q.push({ni, nj});
-                              grid[ni][nj] = '0';
+                              grid[ni][nj] = '0';  <---- immeditely mark when its added to tthe frontier
                           }
                       }
                 }
