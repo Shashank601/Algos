@@ -16,7 +16,7 @@ public:
         int gap = 0;
         for (int i = 2; i < m; i += 2) { 
             int gaps = (pos[i] - pos[i - 1] + 1 - 2) + 1; //exlude seats we get plant now add 1 to get gaps
-            ans = (ans * gaps)%MOD;
+            ans = (ans * gaps)%MOD;  <----- 1 * 10^4 *10^4 * 10^4  thats why long long
         }
 
         return ans;
