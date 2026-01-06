@@ -14,7 +14,7 @@ public:
 
         for (int i = n - 2; i >= 0; i--) {
             for (int j = 1; j <= nums[i]; j++) { // j = 0 islike self loop dp[i] = d[i + 0] + 1 INTMAX + 1 issue
-                if (i + j < n && dp[i + j]  != INT_MAX) {
+                if (i + j < n && dp[i + j]  != INT_MAX) {  yaniki dont change or keep it INITMAX if you cant reach end
                     dp[i] = min(dp[i + j] + 1, dp[i]);
                 }
             }
