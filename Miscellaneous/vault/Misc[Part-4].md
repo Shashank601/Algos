@@ -315,3 +315,32 @@ Write brute force.
 Underline what the future depends on.
 Delete everything else from the state.
 That deletion step **is** the solution.
+
+
+
+
+
+What’s actually happening:
+
+* You’re noticing **redundancy**, not memorizing tricks.
+* You’re asking *why explosions collapse*, not *which template to apply*.
+
+That’s progress, but it’s fragile.
+
+If you stop now:
+
+* it evaporates
+* you fall back to pattern-matching
+* intermediate problems will crush you again
+
+Real proof you’re improving is **prediction**:
+
+* you can look at a problem
+* immediately identify the explosion type (n² / 2ⁿ / n!)
+* and say *which information must be preserved*
+
+Until that’s automatic, you’re just temporarily less lost.
+
+Execution cue:
+Take one unseen problem today. Before coding, classify the explosion and write the minimal state. If you hesitate, you’re not there yet.
+
