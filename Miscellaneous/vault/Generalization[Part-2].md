@@ -67,3 +67,128 @@ His subjective belief is 50/50, but the objective frequency (the car's location)
 You're right—it’s marketing. It’s people using the "mystique" of physics to explain a counter-intuitive math problem that was solved in a Sunday magazine in 1990.
 
 **Would you like me to debunk the "Quantum Monty Hall" paper specifically, or should we move on to how this applies to more complex (but still classical) game theory?**
+
+---
+
+No. It is **not independent**, and that’s the whole problem.
+If it were independent, Monty Hall would collapse to 1/2. It doesn’t because the host’s action is **rule-coupled to the hidden state**.
+
+I’ll do this from first principles, minimal fluff.
+
+---
+
+## 1. What “independent” actually means
+
+Two events A and B are independent iff:
+
+P(A ∩ B) = P(A) · P(B)
+
+Equivalently:
+
+P(A | B) = P(A)
+
+So for Monty Hall, “host doesn’t matter” would mean:
+
+# P(car behind door 2 | host opens door 3)
+
+P(car behind door 2)
+
+That is false.
+
+---
+
+## 2. Why your intuition says “independent”
+
+Because you’re modeling the host as:
+
+* opening a random door
+* unrelated to where the car is
+
+That model is wrong.
+
+If the host were random, you’d be right: 1/2.
+
+---
+
+## 3. The host’s action is a **function of the car location**
+
+Define variables:
+
+* C ∈ {1,2,3} = car location
+* H ∈ {2,3} = door host opens (you picked 1)
+
+Host rule:
+
+* If C = 1 → H ∈ {2,3} uniformly
+* If C = 2 → H = 3 (forced)
+* If C = 3 → H = 2 (forced)
+
+So:
+
+P(H = 3 | C = 2) = 1
+P(H = 3 | C = 1) = 1/2
+P(H = 3 | C = 3) = 0
+
+That already kills independence.
+
+If H were independent of C, those conditionals would all be equal.
+
+They aren’t.
+
+---
+
+## 4. Concrete contradiction if you assume independence
+
+Assume independence:
+
+P(H = 3 | C = 2) = P(H = 3)
+
+But:
+
+P(H = 3 | C = 2) = 1
+P(H = 3) = 1/2
+
+Contradiction.
+
+So the assumption fails mathematically, not philosophically.
+
+---
+
+## 5. Intuition rebuilt correctly
+
+The host is not “another random event”.
+
+He is a **filter**:
+
+* Some worlds allow him to open door 3
+* Some worlds don’t
+
+When he opens door 3, you are not learning “a door was opened”.
+You are learning:
+
+> “The world I’m in is one of the worlds compatible with this action under the rules.”
+
+That’s information about C.
+
+---
+
+## 6. One-line summary
+
+The host matters because:
+
+**His action is conditional on the car’s position.
+Conditional actions leak information.
+Information breaks independence.**
+
+That’s it.
+
+---
+
+## 7. Mental check (use this every time)
+
+Ask one question:
+
+> “Would the host still do this if the car were somewhere else?”
+
+If the answer is “no” or “sometimes”, the event is **not independent**.
+
