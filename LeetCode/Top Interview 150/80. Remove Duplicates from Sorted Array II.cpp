@@ -34,3 +34,16 @@ public:
         return wrt;
     }
 };
+
+
+------------------------------------------
+    even better soln
+    
+if (n <= 2) return n;
+int wrt = 1;  
+for (int read = 2; read < n; read++) {
+    if (nums[read] != nums[wrt] || nums[read] != nums[wrt - 1]) {
+        nums[++wrt] = nums[read];
+    }
+}
+return wrt + 1;
