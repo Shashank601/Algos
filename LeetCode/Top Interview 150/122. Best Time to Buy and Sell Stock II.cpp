@@ -35,10 +35,7 @@ given whether I’m holding a stock or not,
 I don’t need to care about the past.
 
 
-If I reach (idx = 5, ready = false) from two different histories,
-do I need to know which history it was?
 
-Your answer (by code): No.
 
 
 int g(idx, ready):
@@ -105,18 +102,26 @@ g(0,T)
 │   │   │   │   │   └── g(6,F)
 │   │   │   │   │       ├── g(7,T)  ← reused
 │   │   │   │   │       └── g(7,F)  ← reused
-│   │   │   │   └── g(5,T)
+│   │   │   │   └── g(5,T)                                        
 │   │   │   │       ├── g(6,F)  ← reused
 │   │   │   │       └── g(6,T)  ← reused
-│   │   │   └── g(4,F)
+│   │   │   └── g(4,F)                              
 │   │   │       ├── g(5,T)  ← reused
 │   │   │       └── g(5,F)  ← reused
-│   │   └── g(3,T)
-│   │       ├── g(4,F)  ← reused
-│   │       └── g(4,T)  ← reused
+│   │   └── g(3,T)                            <---------  yaniki curr idx pe agar ek T ya F ne effort laga diy tho uske counters collpse hoajyenge kyuki agey ki bracnhing merge ho jati hai
+│   │       ├── dp(4,F)  ← reused
+│   │       └── dp(4,T)  ← reused
 │   └── g(2,F)
 │       ├── g(3,T)  ← reused
 │       └── g(3,F)  ← reused
-└── g(1,T)
+│
+│
+│
+└── g(1,T)   <------------ ek puri bracnh collapse kardi 
     ├── g(2,F)  ← reused
     └── g(2,T)  ← reused
+
+If I reach (idx = 5, ready = false) from two different histories,
+do I need to know which history it was?
+
+Your answer (by code): No.
