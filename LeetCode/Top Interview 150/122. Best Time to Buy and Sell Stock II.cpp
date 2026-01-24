@@ -125,3 +125,39 @@ If I reach (idx = 5, ready = false) from two different histories,
 do I need to know which history it was?
 
 Your answer (by code): No.
+
+
+
+stop mixing realized profit with accounting profit.
+
+g() is not DP logic.
+it is accounting.
+
+
+
+finally
+
+int g(idx, ready):
+    if idx == n: return 0
+    sometimes 
+    dp[i][ready]
+    over
+    if ready:
+        return max(
+            -price[idx] + g(idx+1, false), // buy
+            g(idx+1, true)                 // skip
+        )
+
+    and sometimes
+    dp[i][not ready]
+    over
+    else:
+        return max(
+            price[idx] + g(idx+1, true),  // sell
+            g(idx+1, false)               // skip
+        )
+
+
+
+
+    
