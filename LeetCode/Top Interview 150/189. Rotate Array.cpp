@@ -14,3 +14,8 @@ public:
 copying, 
 reversing, <-- what i did
 cycling.
+
+
+GCD (Greatest Common Divisor)
+HCF (Highest Common Factor)
+→ largest number that divides both numbers exactly.
