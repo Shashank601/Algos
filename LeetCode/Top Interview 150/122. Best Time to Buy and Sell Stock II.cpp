@@ -160,4 +160,7 @@ int g(idx, ready):
 
 
 
-    
+yaniki 
+when i am in a buying state dp will answer me when to buy and whats the best i can get from there
+
+and simsilaryly when i am in selling state dp wiill again rescue
