@@ -337,6 +337,58 @@ int randomLevel(int maxLevel) {
 -------------------------------------------------------
 -------------------------------------------------------
 -------------------------------------------------------
+digraph SkipList10 {
+    rankdir=LR;
+    node [shape=record];
+
+    // Nodes with levels (max level = 4 for simplicity)
+    head [label="<L3> | <L2> | <L1> | <L0> Head"];
+
+    n1  [label="<L2> | <L1> | <L0> 5"];
+    n2  [label="<L1> | <L0> 8"];
+    n3  [label="<L3> | <L2> | <L1> | <L0> 12"];
+    n4  [label="<L1> | <L0> 15"];
+    n5  [label="<L2> | <L1> | <L0> 18"];
+    n6  [label="<L0> 21"];
+    n7  [label="<L3> | <L2> | <L1> | <L0> 25"];
+    n8  [label="<L1> | <L0> 28"];
+    n9  [label="<L2> | <L1> | <L0> 30"];
+    n10 [label="<L0> 35"];
+
+    // Level 3 pointers
+    head:L3 -> n3:L3;
+    n3:L3 -> n7:L3;
+
+    // Level 2 pointers
+    head:L2 -> n1:L2;
+    n1:L2 -> n3:L2;
+    n3:L2 -> n5:L2;
+    n5:L2 -> n7:L2;
+    n7:L2 -> n9:L2;
+
+    // Level 1 pointers
+    head:L1 -> n1:L1;
+    n1:L1 -> n2:L1;
+    n2:L1 -> n3:L1;
+    n3:L1 -> n4:L1;
+    n4:L1 -> n5:L1;
+    n5:L1 -> n7:L1;
+    n7:L1 -> n8:L1;
+    n8:L1 -> n9:L1;
+
+    // Level 0 pointers
+    head:L0 -> n1:L0;
+    n1:L0 -> n2:L0;
+    n2:L0 -> n3:L0;
+    n3:L0 -> n4:L0;
+    n4:L0 -> n5:L0;
+    n5:L0 -> n6:L0;
+    n6:L0 -> n7:L0;
+    n7:L0 -> n8:L0;
+    n8:L0 -> n9:L0;
+    n9:L0 -> n10:L0;
+}
+
 -------------------------------------------------------
 
 finally ugly but fine:
