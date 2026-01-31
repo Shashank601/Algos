@@ -30,6 +30,11 @@ public:
 
 -------------------------------------------
 avoid recursion:
+
+heapIdx can go unnecesaaryly huge
+due to doubling on each depth
+
+2^64  <-- even long long cant handle this, need unsigned long long
 class Solution {
 public:
     vector<unsigned long long> everyDepthFirstIdx;
