@@ -103,3 +103,14 @@ OR condition:
 
 false || true
 =>true
+--------------------
+
+
+        Why asymmetry is required
+
+Pattern has operators (*), string does not.
+So:
+pattern exhaustion is final
+string exhaustion is not
+
+That’s why the base is asymmetric.
