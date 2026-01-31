@@ -37,7 +37,7 @@ public:
                 if (!st.top()->left) {
                     st.top()->left = node;
                 } else {
-                    st.top()->right = node;
+                    st.top()->right = node;         <----------- if inp is valid this will defn be nullptr for sure thats why we assigned node to it  now two things can happen either the the string will go deep or go up in both case just push curr node for now  
                 }
             }
             st.push(node);
