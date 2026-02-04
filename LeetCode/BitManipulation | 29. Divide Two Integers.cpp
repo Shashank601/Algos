@@ -1,3 +1,5 @@
+try again tommorw
+--------------------------------------
 x << k  ≡  x × (2^k)
 abs(INT_MIN) will overflow int
 
@@ -10,7 +12,7 @@ public:
         int quo = 0;
         while (divisor <= dividend) {
             int k = 0;
-            while (divisor << (k + 1) < dividend) {
+            while (divisor << (k + 1) <= dividend) {
                 k++;
             }
           
@@ -23,7 +25,73 @@ public:
         return quo;
     }
 };
+-------------------------
+Your loop condition is logically wrong
+while (divisor <= dividend)
 
+
+This only works when both are positive.
+If:
+dividend < 0 or divisor < 0 → condition is meaningless
+divisor < 0 and dividend > 0 → infinite loop
+dividend < divisor but both negative → wrong result
+Division is about absolute magnitudes, not signed comparison.
+
+
+
+must reduce the problem too...
+|dividend| >= |divisor|
+
+
+
+You are shifting signed ints → undefined behavior
+divisor << (k + 1)
+If divisor is negative, this is undefined behavior in C++.
+If (k + 1) >= 31, also undefined.
+
+
+Fix: work with unsigned int or carefully bounded positives
+
+
+
+4. You never handle sign of the result
+Example:
+divide(7, -3)
+
+
+Your code:
+never flips sign
+never converts to absolute values
+returns garbage or loops forever
+Division sign rule is not optional.
+
+
+Try
+Handle overflow case early
+Determine sign of result
+
+Convert both numbers to positive magnitude
+Repeatedly subtract the largest shifted divisor
+
+Apply sign to result
+
+
+===================================
+
+sign is 
+
+Division sign rule:
+
+Same signs → positive
+Different signs → negative
+
+
+
+
+
+
+
+    
 -------------------------
 Division answers:
 “How many times does the divisor fit into the dividend?”
@@ -50,6 +118,83 @@ fial ans here
 
 
 ==================================================================================================
+What your if actually covers
+if (dividend == INT_MIN && divisor == -1)
+    return INT_MAX;
+
+
+This handles only:
+INT_MIN / -1
+
+
+Why?
+Because the result overflows int.
+What it does NOT protect you from
+You still do this later:
+abs(dividend)
+
+or any equivalent logic.
+
+If:
+
+dividend == INT_MIN
+divisor  != -1
+
+
+Example:
+INT_MIN / 2
+This is a perfectly valid division.
+
+Expected result:
+-1073741824
+
+
+But:
+abs(INT_MIN)   // overflow → UB
+
+
+
+What you think you’re doing
+
+You think this is safe:
+unsigned int a = abs(dividend);  <---------- abs excute first before assignemnent
+Because a is unsigned.
+It is not safe.
+
+cant do ((u)dividend) too
+abs is defined for signed types:
+
+int abs(int)
+long labs(long)
+long long llabs(long long)
+There is no abs(unsigned int)
+
+
+Why the “ugly” version is the only correct one (without long long)
+unsigned int a = dividend < 0 ? -(unsigned int)dividend : dividend;
+
+
+Because:
+no abs    <--------------- ek dum ghatiya no support for unsigned int;
+no signed overflow
+no narrowing
+no UB
+
+magnitude computed safely
+
+
+
+nsigned int a = dividend < 0 ? -dividend : dividend; (no explicit typecasting == error)
+
+What actually happens
+dividend is int
+-dividend is computed as int
+If dividend == INT_MIN → signed overflow
+UB happens before assignment to unsigned
+==================================================================================================
+start:
+
+    
 No *, /, %
 
 addition, subtraction, and shifts
