@@ -78,3 +78,38 @@ pq => {freq, ch}
 
 
 */
+the algo may look simple but 
+the part where we push prev first then set prev to 1 less and hold it.
+is not intuitive 
+and very less likely in interview i will able to come up with this specific apporach
+ORDER
+
+
+You’re not wrong. This exact prev trick is not something people “derive” cleanly under interview pressure.
+Constraint:
+No two adjacent characters are equal.
+Rephrased:
+When you pick a character, you must ban it from being picked again immediately.
+That’s it. Everything else is implementation detail.
+
+--------------------------------------------------------------
+
+If you only do:
+pick most frequent char
+decrement
+push back
+
+Then the heap happily gives you the same character again, 
+because it’s still the most frequent.
+
+Heap does not understand “recently used”.
+You must enforce a cooldown of exactly 1 step.
+
+
+--------------------------------------------------------------
+At every step:
+
+The character used in the previous position must not be available in the heap.
+
+That’s the invariant.
+Once you understand this, the prev logic is inevitable.
