@@ -50,7 +50,7 @@ width cant be negative; no overlap
 
 
 
-If the rectangles don't overlap, these subtractions will result in a negative number.
+If the rectangles don`t overlap, these subtractions will result in a negative number.
 
 
 
