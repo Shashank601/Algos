@@ -417,5 +417,76 @@ After we take away the 24, we are left with 12+3+1=16
      first bite (largest wali)
 ----------------------------------
 
+For integer division:
+dividend = divisor × quotient + remainder
+
+Now decompose quotient in binary:
+quotient = 2^k + 2^m + 2^n + ...
+
+Subsitiruete
+dividend = divisor × (2^k + 2^m + 2^n + ...)
+= (divisor×2^k) + (divisor×2^m) + (divisor×2^n) + ...
+
+eg.
+40 ÷ 3
+Quotient = 13
+Binary: 13 = 8 + 4 + 1
+
+So:
+40 = 3×13 + 1
+40 = (3×8) + (3×4) + (3×1) + 1
+
+
+You are not decomposing 40.
+You are decomposing 13, then scaling by 3.
+
+---------------------------------------
+13 is not special. It’s just an integer.
+    
+Every integer has a binary form:
+13 = 1101₂ = 8 + 4 + 1
+
+Take the true equation:
+40 = 3 × 13 + 1
+Replace 13 with 8 + 4 + 1:
+40 = 3 × (8 + 4 + 1) + 1
+
+
+whole problem is find that decomposition?
+    yes.
+
+
+You can’t compute q directly using /.
+So you construct q.
+How?
+By discovering which powers of two belong in it.
+That means you are finding a decomposition:
+q = 2^k1 + 2^k2 + 2^k3 + ...
+
+
+This is exactly binary representation.
+
+    
+----------------------------------
+    Why this decomposition is the solution
+
+Because once you choose a bit 2^k in q, the equation forces:
+dividend -= divisor × 2^k
+
+And divisor × 2^k is legal via shifting.
+So the algorithm becomes:
+q = 0
+while dividend >= divisor:
+    find largest k such that (divisor << k) <= dividend
+    dividend -= (divisor << k)
+    q += (1 << k)
+
+You are discovering the binary digits of q from MSB to LSB.
+That’s binary long division.
+----------------------------------
+
+
+
+off topic:
 ceil(a / b) = (a + b - 1) / b
 
