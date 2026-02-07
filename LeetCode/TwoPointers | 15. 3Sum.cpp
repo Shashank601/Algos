@@ -43,3 +43,44 @@ public:
         return ans;
     }
 };
+--------------------------------
+for clarity 
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> ans;
+        int n = nums.size();
+
+
+        for (int i = 0; i < n; i++) {
+            if (i > 0 && nums[i - 1] == nums[i]) continue;  <---- skipping dup anchors in sorted array 
+            int cur = nums[i];
+
+
+            two pointers
+            int l = i + 1;
+            int r = nums.size() - 1;
+            while (l < r) {
+                if (cur + nums[l] + nums[r] == 0) {
+                    ans.push_back({cur, nums[l], nums[r]});
+                    
+                    l++;
+                    r--;
+
+                    use l < r condn instead
+                    while (l < nums.size() - 1 && nums[l] == nums[l - 1]) l++; 
+                    while (r >= 0 && nums[r] == nums[r + 1]) r--; 
+                }
+                else if (cur + nums[l] + nums[r] > 0) {
+                    r--;
+                } else {
+                    l++;
+                }
+            }
+        }
+        return ans;
+
+    }
+};
