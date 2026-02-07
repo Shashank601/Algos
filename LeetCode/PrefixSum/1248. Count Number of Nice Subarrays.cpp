@@ -12,10 +12,9 @@ public:
         for (int i = 0; i < n; i++) {
             cnt += nums[i]%2;
 
-            if (freq.count(cnt - k)) {
-                ans += freq[cnt - k];
-            }
-
+            
+            ans += freq[cnt - k];
+           
             freq[cnt]++;
         }
 
