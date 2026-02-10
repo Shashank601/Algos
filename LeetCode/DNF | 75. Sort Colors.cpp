@@ -13,7 +13,7 @@ public:
             blue
         };
 
-        while (j <= k) {
+        while (j <= k) {               <-------------j <= and not j < 
             if (nums[j] == red) {
                 swap(nums[i], nums[j]);
                 i++;
