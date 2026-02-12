@@ -1,3 +1,5 @@
+similar to "min genetic mutations"
+
 repr board as a string
 and keep track of neigh of relative idx 
 
