@@ -25,3 +25,27 @@ public:
         return cnt;
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+chtgpt:
+
+Brian Kernighan trick (faltu)
+This runs only as many times as there are 1s.
+n & (n - 1) removes the lowest set bit.
+
+& 1001
+= 1000
+
+Again, lowest 1 removed.
