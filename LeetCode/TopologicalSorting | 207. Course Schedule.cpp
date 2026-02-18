@@ -1,3 +1,5 @@
+no vis array in kahns algo
+
 class Solution {
 public:
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
@@ -51,3 +53,29 @@ Because nothing depends on them.
 They are independent starting points.
 
 That is the key observation.
+
+===========================
+
+How is cycle detected ?
+
+Not with vis.
+Cycle is detected by:
+processed_count != numCourses
+
+
+Why?
+Because in a cycle:
+Every node in cycle has in-degree ≥ 1
+So none of them ever enter queue
+
+So they never get processed
+Queue becomes empty early.
+
+Remaining nodes = cycle.
+
+Important distinction
+
+DFS topological sort → needs vis and recursion stack.
+Kahn BFS → does NOT need vis.
+
+Different invariants.
