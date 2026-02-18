@@ -104,3 +104,8 @@ eg. getNewsFeed creating user  this violates single responsibility princple
 eg. accessing a key w/o checking it exist => empty vector banjayenege
 .
 .
+
+
+=============================
+
+    i am thinking about each user also having there deque with top 10 post and it will get updated if any of his friend post 
