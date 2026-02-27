@@ -62,3 +62,18 @@ n & (n - 1) removes the lowest set bit.
 = 1000
 
 Again, lowest 1 removed.
+
+
+What happens when you subtract 1 from a number in binary?
+
+This is the key.
+Take a number in general form:
+
+xxxx1000...000
+(some bits, then a 1, then only zeros)
+
+When you subtract 1:
+xxxx0111...111
+Why?
+
+Because subtraction borrows from the rightmost 1.
