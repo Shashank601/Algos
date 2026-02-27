@@ -1,6 +1,19 @@
 class Solution {
 public:
     int hammingWeight(int n) {
+        int cnt;
+        while (n) {
+            n = n & (n - 1);
+            cnt++;
+        }
+        return cnt;
+    }
+};
+
+
+class Solution {
+public:
+    int hammingWeight(int n) {
         int cnt = 0;
         while (n) {
             if (1&n) cnt++;
@@ -41,7 +54,7 @@ public:
 
 chtgpt:
 
-Brian Kernighan trick (faltu)
+Brian Kernighan trick 
 This runs only as many times as there are 1s.
 n & (n - 1) removes the lowest set bit.
 
